@@ -58,7 +58,7 @@
 
     <oxm:jaxb2-marshaller id="marshaller">
         <!-- Object-XML mapping declared using annotations inside 'Vets' -->
-        <oxm:class-to-be-bound name="vn.jmango.grande.model.Vets"/>
+        <oxm:class-to-be-bound name="vn.jmango.grande.virtualstore.model.Vets"/>
     </oxm:jaxb2-marshaller>
 
 </beans>
