@@ -21,6 +21,9 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.jmango.grande.virtualstore.model.Owner;
+import vn.jmango.grande.virtualstore.model.Pet;
+
 /**
  * JUnit test for the {@link Owner} class.
  *

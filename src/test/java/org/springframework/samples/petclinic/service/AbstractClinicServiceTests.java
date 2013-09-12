@@ -25,14 +25,16 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import vn.jmango.grande.virtualstore.model.Owner;
+import vn.jmango.grande.virtualstore.model.Pet;
+import vn.jmango.grande.virtualstore.model.PetType;
+import vn.jmango.grande.virtualstore.model.Vet;
+import vn.jmango.grande.virtualstore.model.Visit;
+import vn.jmango.grande.virtualstore.service.ClinicService;
+import vn.jmango.grande.virtualstore.util.EntityUtils;
 
 /**
  * <p> Base class for {@link ClinicService} integration tests. </p> <p> Subclasses should specify Spring context

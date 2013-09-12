@@ -1,20 +1,20 @@
-# Spring PetClinic Sample Application
+# Spring Grande Virtual Store Application
 
 ## Understanding the Spring Petclinic application with a few diagrams
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
-## Running petclinic locally
+## Running Virtual Store locally
 ```
 	git clone https://github.com/SpringSource/spring-petclinic.git
 	mvn tomcat7:run
 ```
 
-You can then access petclinic here: http://localhost:9966/petclinic/
+You can then access petclinic here: http://localhost:9966/virtual-store/
 
-## In case you find a bug/suggested improvement for Spring Petclinic
-Our issue tracker is available here: https://github.com/SpringSource/spring-petclinic/issues
+## In case you find a bug/suggested improvement for Spring Virtual Store
+Our issue tracker is available here: 
 
-## Working with Petclinic in Eclipse/STS
+## Working with Virtual Store in Eclipse/STS
 
 ### prerequisites
 The following items should be installed in your system:
