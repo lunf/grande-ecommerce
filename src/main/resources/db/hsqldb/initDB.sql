@@ -5,6 +5,7 @@ DROP TABLE visits IF EXISTS;
 DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
+DROP TABLE product IF EXISTS;
 
 
 CREATE TABLE vets (
@@ -62,3 +63,55 @@ CREATE TABLE visits (
 );
 ALTER TABLE visits ADD CONSTRAINT fk_visits_pets FOREIGN KEY (pet_id) REFERENCES pets (id);
 CREATE INDEX visits_pet_id ON visits (pet_id);
+
+CREATE TABLE product (
+  id         			INTEGER IDENTITY PRIMARY KEY,
+  name 		 			VARCHAR(255) NOT NULL,
+  short_description     VARCHAR(255),
+  long_description      VARCHAR(1024),
+  color       			VARCHAR(80),
+  weight  				VARCHAR(20),
+  length 				VARCHAR(20),
+  height 				VARCHAR(20),
+  width 				VARCHAR(20),
+  depth 				VARCHAR(20),
+  price 				DOUBLE,
+  material 				VARCHAR(255),
+  key_features 			VARCHAR(1024),
+  bar_code 				VARCHAR(255),
+  unique_code 			VARCHAR(255)
+);
+
+CREATE TABLE piece (
+  id          INTEGER IDENTITY PRIMARY KEY,
+  product_id      INTEGER NOT NULL,
+  name 		 			VARCHAR(255) NOT NULL,
+  short_description     VARCHAR(255),
+  long_description      VARCHAR(1024),
+  color       			VARCHAR(80),
+  weight  				VARCHAR(20),
+  length 				VARCHAR(20),
+  height 				VARCHAR(20),
+  width 				VARCHAR(20),
+  depth 				VARCHAR(20),
+  price 				DOUBLE,
+  material 				VARCHAR(255),
+  key_features 			VARCHAR(1024),
+  bar_code 				VARCHAR(255),
+  unique_code 			VARCHAR(255)
+);
+ALTER TABLE piece ADD CONSTRAINT fk_piece FOREIGN KEY (product_id) REFERENCES product (id);
+
+
+CREATE TABLE jmfile (
+  id          INTEGER IDENTITY PRIMARY KEY,
+  product_file_id      INTEGER NOT NULL,
+  piece_file_id        INTEGER NOT NULL,
+  name 		 			VARCHAR(255) NOT NULL,
+  extension     		VARCHAR(20),
+  data			        BLOB,
+  content_type       	VARCHAR(80)
+);
+ALTER TABLE jmfile ADD CONSTRAINT fk_product_file FOREIGN KEY (product_file_id) REFERENCES product (id);
+ALTER TABLE jmfile ADD CONSTRAINT fk_piece_file FOREIGN KEY (piece_file_id) REFERENCES piece (id);
+
