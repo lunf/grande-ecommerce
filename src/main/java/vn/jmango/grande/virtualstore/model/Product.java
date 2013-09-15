@@ -50,16 +50,13 @@ public class Product extends BaseEntity {
 	protected double price;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private Set<JmFile> images;
+	private Set<JmFile> files;
 
 	@Column(name = "material")
 	protected String material;
 
 	@Column(name = "key_features")
 	protected String keyFeatures;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private Set<JmFile> assemblyInstructions;
 
 	@Column(name = "bar_code")
 	protected String barcode;
