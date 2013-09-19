@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.jmango.grande.virtualstore.model.Owner;
 import vn.jmango.grande.virtualstore.model.Pet;
 import vn.jmango.grande.virtualstore.model.PetType;
+import vn.jmango.grande.virtualstore.model.Product;
 import vn.jmango.grande.virtualstore.model.Vet;
 import vn.jmango.grande.virtualstore.model.Visit;
 import vn.jmango.grande.virtualstore.repository.OwnerRepository;
@@ -105,6 +106,25 @@ public class ClinicServiceImpl implements ClinicService {
     public Collection<Vet> findVets() throws DataAccessException {
         return vetRepository.findAll();
     }
+
+	@Override
+	public void saveProduct(Product product) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Collection<Product> findProductByName(String Name)
+			throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Product findProductById(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }

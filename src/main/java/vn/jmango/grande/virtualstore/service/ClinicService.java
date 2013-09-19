@@ -22,6 +22,7 @@ import org.springframework.dao.DataAccessException;
 import vn.jmango.grande.virtualstore.model.Owner;
 import vn.jmango.grande.virtualstore.model.Pet;
 import vn.jmango.grande.virtualstore.model.PetType;
+import vn.jmango.grande.virtualstore.model.Product;
 import vn.jmango.grande.virtualstore.model.Vet;
 import vn.jmango.grande.virtualstore.model.Visit;
 
@@ -46,7 +47,16 @@ public interface ClinicService {
     public Collection<Vet> findVets() throws DataAccessException;
 
     public void saveOwner(Owner owner) throws DataAccessException;
+    
+    
 
     Collection<Owner> findOwnerByLastName(String lastName) throws DataAccessException;
+    
+    
+    public void saveProduct(Product product) throws DataAccessException;
+    
+    Collection<Product> findProductByName(String Name) throws DataAccessException;
+    
+    public Product findProductById(int id) throws DataAccessException;
 
 }
