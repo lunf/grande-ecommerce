@@ -14,52 +14,46 @@
 <div class="container">
     <jsp:include page="../fragments/bodyHeader.jsp"/>
 
-    <h2>Owner Information</h2>
+    <h2>Product Information</h2>
 
     <table class="table table-striped" style="width:600px;">
         <tr>
             <th>Name</th>
-            <td><b><c:out value="${owner.firstName} ${owner.lastName}"/></b></td>
+            <td><b><c:out value="${product.name}"/></b></td>
         </tr>
         <tr>
-            <th>Address</th>
-            <td><c:out value="${owner.address}"/></td>
+            <th>Short Description</th>
+            <td><c:out value="${product.shortDescription}"/></td>
         </tr>
         <tr>
-            <th>City</th>
-            <td><c:out value="${owner.city}"/></td>
-        </tr>
-        <tr>
-            <th>Telephone</th>
-            <td><c:out value="${owner.telephone}"/></td>
+            <th>Bar code</th>
+            <td><c:out value="${product.barcode}"/></td>
         </tr>
          <tr>
             <td> 
-            	<spring:url value="{ownerId}/edit.html" var="editUrl">
-                    <spring:param name="ownerId" value="${owner.id}"/>
+            	<spring:url value="{productId}/edit.html" var="editUrl">
+                    <spring:param name="productId" value="${product.id}"/>
                 </spring:url>
-                <a href="${fn:escapeXml(editUrl)}" class="btn btn-info">Edit Owner</a></td>
+                <a href="${fn:escapeXml(editUrl)}" class="btn btn-info">Edit Product</a></td>
             <td>
-            	<spring:url value="{ownerId}/pets/new.html" var="addUrl">
-                    <spring:param name="ownerId" value="${owner.id}"/>
+            	<spring:url value="{productId}/pets/new.html" var="addUrl">
+                    <spring:param name="productId" value="${product.id}"/>
                 </spring:url>
-                <a href="${fn:escapeXml(addUrl)}"  class="btn btn-success">Add New Pet</a></td>
+                <a href="${fn:escapeXml(addUrl)}"  class="btn btn-success">Add New Image</a></td>
         </tr>
     </table>
 
-    <h2>Pets and Visits</h2>
+    <h2>Images</h2>
 
-    <c:forEach var="pet" items="${owner.pets}">
+    <c:forEach var="file" items="${product.files}">
         <table class="table" style="width:600px;">
             <tr>
                 <td valign="top" style="width: 120px;">
                     <dl class="dl-horizontal">
                         <dt>Name</dt>
-                        <dd><c:out value="${pet.name}"/></dd>
-                        <dt>Birth Date</dt>
-                        <dd><joda:format value="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
-                        <dt>Type</dt>
-                        <dd><c:out value="${pet.type.name}"/></dd>
+                        <dd><c:out value="${file.name}"/></dd>
+                        <dt>Info</dt>
+                        <dd><c:out value="${file.data}"/></dd>
                     </dl>
                 </td>
                 <td valign="top">
