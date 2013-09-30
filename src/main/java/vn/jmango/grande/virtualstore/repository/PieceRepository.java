@@ -8,5 +8,7 @@ import vn.jmango.grande.virtualstore.model.Piece;
 public interface PieceRepository {
 	
 	void savePiece(Piece piece) throws DataAccessException;
+	
+	
 
 }

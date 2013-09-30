@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import vn.jmango.grande.virtualstore.model.Product;
 import vn.jmango.grande.virtualstore.repository.ProductRepository;
@@ -37,6 +38,7 @@ public class JpaProductRepositoryImpl implements ProductRepository {
 	}
 
 	@Override
+	@Transactional
 	public void save(Product product) throws DataAccessException {
 		// TODO Auto-generated method stub
 		if (product.getId() == null) {

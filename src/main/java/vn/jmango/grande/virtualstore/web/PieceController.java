@@ -1,9 +1,11 @@
 package vn.jmango.grande.virtualstore.web;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
+import org.hsqldb.map.ReusableObjectCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import vn.jmango.grande.virtualstore.model.Color;
 import vn.jmango.grande.virtualstore.model.Material;
@@ -30,7 +33,7 @@ public class PieceController {
 	public PieceController(ClinicService clinicService) {
 		this.clinicService = clinicService;
 	}
-	
+
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -41,38 +44,38 @@ public class PieceController {
 			Map<String, Object> model) {
 		List<Color> colors = this.clinicService.getAllColor();
 		List<Material> materials = this.clinicService.getAllMaterial();
-		Product product = this.clinicService.findProductById(productId);
-		Piece piece = new Piece();
-		System.out.println(product.getId());
-		List<Piece> pieces = product.getPieces();
-		if (pieces == null || pieces.isEmpty())
-		{
-			pieces = new ArrayList<Piece>();
-			
-			pieces.add(piece);
-			
-			product.setPieces(pieces);
-			
-		}
-		else
-		{
-			product.getPieces().add(piece);
-		}
-		
+//		Product product = this.clinicService.findProductById(productId);
+//		Piece piece = new Piece();
+//		product.addPiece(piece);
 		model.put("materials", materials);
 		model.put("colors", colors);
-		model.put("piece", piece);
+		model.put("piece", new Piece());
 		return "piece/createPiece";
 	}
 
 	@RequestMapping(value = "/products/{productId}/piece/new", method = RequestMethod.POST)
-	public String creatPiece(@ModelAttribute("piece") Piece piece,
-			BindingResult result, SessionStatus status) {
+	public String creatPiece(@Valid Material material,
+			Map<String, Object> model,
+			@PathVariable("productId") int productId,
+			@ModelAttribute("piece") Piece piece, BindingResult result,
+			SessionStatus status) {
+
 		if (result.hasErrors()) {
+			// ModelAndView modelAndView= new ModelAndView("piece/createPiece");
+			// return modelAndView;
 			return "piece/createPiece";
 		} else {
+
+			Product product = this.clinicService.findProductById(productId);
+			System.out.println("Product :" + product.getId());
+
+			piece.setProduct(product);
 			this.clinicService.savePiece(piece);
 			status.setComplete();
+			// ModelAndView modelAndView=new
+			// ModelAndView("redirect:/products/{productId}");
+			// modelAndView.addObject(piece);
+			// return modelAndView;
 			return "redirect:/products/{productId}";
 		}
 

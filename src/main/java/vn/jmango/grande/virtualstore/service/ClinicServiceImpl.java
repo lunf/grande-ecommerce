@@ -65,7 +65,6 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
-	@Transactional
 	public Collection<Product> findProductByName(String Name)
 			throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -73,14 +72,12 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
-	@Transactional
 	public Product findProductById(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return this.productRepository.findById(id);
 	}
 
 	@Override
-	@Transactional
 	public List<Color> getAllColor() throws DataAccessException {
 		// TODO Auto-generated method stub
 		System.out.println("get data COlor");
@@ -95,7 +92,6 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
-	@Transactional
 	public List<Material> getAllMaterial() throws DataAccessException {
 		// TODO Auto-generated method stub
 		return this.materialRepository.getAllMaterial();

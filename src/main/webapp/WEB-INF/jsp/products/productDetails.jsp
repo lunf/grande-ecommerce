@@ -5,6 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags"%>
+<%@ taglib prefix="datatables"
+	uri="http://github.com/dandelion/datatables"%>
 
 <html lang="en">
 
@@ -66,16 +68,42 @@
 						<spring:param name="productId" value="${product.id}" />
 					</spring:url> <a href="${fn:escapeXml(editUrl)}" class="btn btn-info">Edit
 						Product</a></td>
-				<td><spring:url value="{productId}/pets/new.html" var="addImageUrl">
+				<td><spring:url value="{productId}/pets/new.html"
+						var="addImageUrl">
 						<spring:param name="productId" value="${product.id}" />
 					</spring:url> <a href="${fn:escapeXml(addImageUrl)}" class="btn btn-success">Add
 						New Image</a></td>
-				<td><spring:url value="{productId}/piece/new.html" var="addPieceUrl">
+				<td><spring:url value="{productId}/piece/new.html"
+						var="addPieceUrl">
 						<spring:param name="productId" value="${product.id}" />
 					</spring:url> <a href="${fn:escapeXml(addPieceUrl)}" class="btn btn-success">Add
 						New Piece</a></td>
 			</tr>
 		</table>
+
+		<h2>Pieces</h2>
+		<c:forEach var="piece" items="${product.pieces}">
+			<table class="table" style="width: 600px;">
+				<tr>
+					<td valign="top" style="width: 120px;">
+						<dl class="dl-horizontal">
+							<dt>Name</dt>
+							<dd>
+								<c:out value="${piece.name}" />
+							</dd>
+							<dt>Color</dt>
+							<dd>
+								<c:out value="${piece.color}" />
+							</dd>
+							<dt>Width</dt>
+							<dd>
+								<c:out value="${piece.width}" />
+							</dd>
+						</dl>
+					</td>
+				</tr>
+			</table>
+		</c:forEach>
 
 		<h2>Images</h2>
 

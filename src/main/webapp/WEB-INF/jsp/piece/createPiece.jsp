@@ -53,10 +53,10 @@
 			<div class="form-actions">
 				<c:choose>
 					<c:when test="${piece['new']}">
-						<button type="submit">Add Product</button>
+						<button type="submit">Add Piece</button>
 					</c:when>
 					<c:otherwise>
-						<button type="submit">Update Product</button>
+						<button type="submit">Update Piece</button>
 					</c:otherwise>
 				</c:choose>
 			</div>

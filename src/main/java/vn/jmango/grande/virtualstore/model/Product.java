@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -53,7 +54,7 @@ public class Product extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private Set<JmFile> files;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
 	private List<Piece> pieces;
 
 	@Column(name = "key_features")
@@ -185,16 +186,16 @@ public class Product extends BaseEntity {
 	public void setUniqueCode(String uniqueCode) {
 		this.uniqueCode = uniqueCode;
 	}
-	
-	
+
 	public void setPieces(List<Piece> pieces) {
+
 		this.pieces = pieces;
 	}
 
 	protected void setPieceInternal(List<Piece> pieces) {
 		this.pieces = pieces;
 	}
-	
+
 	protected List<Piece> getPiecesInternal() {
 		if (this.pieces == null) {
 			this.pieces = new ArrayList<Piece>();
@@ -203,11 +204,16 @@ public class Product extends BaseEntity {
 	}
 
 	public List<Piece> getPieces() {
-//		List<Piece> sortedPiece = new ArrayList<Piece>(getPiecesInternal());
-//		PropertyComparator.sort(sortedPiece, new MutableSortDefinition("name",
-//				true, true));
-//		return Collections.unmodifiableList(sortedPiece);
-		
+		// List<Piece> sortedPiece = new ArrayList<Piece>(getPiecesInternal());
+		// PropertyComparator.sort(sortedPiece, new
+		// MutableSortDefinition("name",
+		// true, true));
+		// return Collections.unmodifiableList(sortedPiece);
+
+		if (this.pieces == null) {
+			this.pieces = new ArrayList<Piece>();
+		}
+
 		return this.pieces;
 	}
 
