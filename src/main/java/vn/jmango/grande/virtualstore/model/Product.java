@@ -1,5 +1,7 @@
 package vn.jmango.grande.virtualstore.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -25,11 +27,10 @@ public class Product extends BaseEntity {
 	protected String longDescription;
 
 	@Column(name = "color")
-	@NotEmpty
 	protected String color;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private Set<Piece> pieces;
+	@Column(name = "material")
+	protected String material;
 
 	@Column(name = "weight")
 	protected String weight;
@@ -52,8 +53,8 @@ public class Product extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private Set<JmFile> files;
 
-	@Column(name = "material")
-	protected String material;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+	private List<Piece> pieces;
 
 	@Column(name = "key_features")
 	protected String keyFeatures;
@@ -87,22 +88,6 @@ public class Product extends BaseEntity {
 
 	public void setLongDescription(String longDescription) {
 		this.longDescription = longDescription;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public Set<Piece> getPieces() {
-		return pieces;
-	}
-
-	public void setPieces(Set<Piece> pieces) {
-		this.pieces = pieces;
 	}
 
 	public String getWeight() {
@@ -161,6 +146,14 @@ public class Product extends BaseEntity {
 		this.files = files;
 	}
 
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public String getMaterial() {
 		return material;
 	}
@@ -191,6 +184,36 @@ public class Product extends BaseEntity {
 
 	public void setUniqueCode(String uniqueCode) {
 		this.uniqueCode = uniqueCode;
+	}
+	
+	
+	public void setPieces(List<Piece> pieces) {
+		this.pieces = pieces;
+	}
+
+	protected void setPieceInternal(List<Piece> pieces) {
+		this.pieces = pieces;
+	}
+	
+	protected List<Piece> getPiecesInternal() {
+		if (this.pieces == null) {
+			this.pieces = new ArrayList<Piece>();
+		}
+		return this.pieces;
+	}
+
+	public List<Piece> getPieces() {
+//		List<Piece> sortedPiece = new ArrayList<Piece>(getPiecesInternal());
+//		PropertyComparator.sort(sortedPiece, new MutableSortDefinition("name",
+//				true, true));
+//		return Collections.unmodifiableList(sortedPiece);
+		
+		return this.pieces;
+	}
+
+	public void addPiece(Piece piece) {
+		getPiecesInternal().add(piece);
+		piece.setProduct(this);
 	}
 
 }

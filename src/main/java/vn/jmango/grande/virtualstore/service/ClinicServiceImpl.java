@@ -16,115 +16,103 @@
 package vn.jmango.grande.virtualstore.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.jmango.grande.virtualstore.model.Owner;
-import vn.jmango.grande.virtualstore.model.Pet;
-import vn.jmango.grande.virtualstore.model.PetType;
+import vn.jmango.grande.virtualstore.model.Color;
+import vn.jmango.grande.virtualstore.model.Material;
+import vn.jmango.grande.virtualstore.model.Piece;
 import vn.jmango.grande.virtualstore.model.Product;
-import vn.jmango.grande.virtualstore.model.Vet;
-import vn.jmango.grande.virtualstore.model.Visit;
-import vn.jmango.grande.virtualstore.repository.OwnerRepository;
-import vn.jmango.grande.virtualstore.repository.PetRepository;
-import vn.jmango.grande.virtualstore.repository.VetRepository;
-import vn.jmango.grande.virtualstore.repository.VisitRepository;
+import vn.jmango.grande.virtualstore.repository.ColorRepository;
+import vn.jmango.grande.virtualstore.repository.MaterialRepository;
+import vn.jmango.grande.virtualstore.repository.PieceRepository;
+import vn.jmango.grande.virtualstore.repository.ProductRepository;
 
 /**
- * Mostly used as a facade for all Petclinic controllers
- * Also a placeholder for @Transactional and @Cacheable annotations
- *
+ * Mostly used as a facade for all Petclinic controllers Also a placeholder for @Transactional
+ * and @Cacheable annotations
+ * 
  * @author Michael Isvy
  */
 @Service
 public class ClinicServiceImpl implements ClinicService {
 
-    private PetRepository petRepository;
-    private VetRepository vetRepository;
-    private OwnerRepository ownerRepository;
-    private VisitRepository visitRepository;
+	private ProductRepository productRepository;
+	private ColorRepository colorRepository;
+	private MaterialRepository materialRepository;
+	private PieceRepository pieceRepository;
 
-    @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository) {
-        this.petRepository = petRepository;
-        this.vetRepository = vetRepository;
-        this.ownerRepository = ownerRepository;
-        this.visitRepository = visitRepository;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Collection<PetType> findPetTypes() throws DataAccessException {
-        return petRepository.findPetTypes();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Owner findOwnerById(int id) throws DataAccessException {
-        return ownerRepository.findById(id);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Collection<Owner> findOwnerByLastName(String lastName) throws DataAccessException {
-        return ownerRepository.findByLastName(lastName);
-    }
-
-    @Override
-    @Transactional
-    public void saveOwner(Owner owner) throws DataAccessException {
-        ownerRepository.save(owner);
-    }
-
-
-    @Override
-    @Transactional
-    public void saveVisit(Visit visit) throws DataAccessException {
-        visitRepository.save(visit);
-    }
-
-
-    @Override
-    @Transactional(readOnly = true)
-    public Pet findPetById(int id) throws DataAccessException {
-        return petRepository.findById(id);
-    }
-
-    @Override
-    @Transactional
-    public void savePet(Pet pet) throws DataAccessException {
-        petRepository.save(pet);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    @Cacheable(value = "vets")
-    public Collection<Vet> findVets() throws DataAccessException {
-        return vetRepository.findAll();
-    }
-
-	@Override
-	public void saveProduct(Product product) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+	@Autowired
+	public ClinicServiceImpl(ProductRepository productRepository,
+			ColorRepository colorRepository,
+			MaterialRepository materialRepository,
+			PieceRepository pieceRepository) {
+		this.productRepository = productRepository;
+		this.colorRepository = colorRepository;
+		this.materialRepository = materialRepository;
+		this.pieceRepository=pieceRepository;
 	}
 
 	@Override
+	@Transactional
+	public void saveProduct(Product product) throws DataAccessException {
+		// TODO Auto-generated method stub
+		productRepository.save(product);
+	}
+
+	@Override
+	@Transactional
 	public Collection<Product> findProductByName(String Name)
 			throws DataAccessException {
 		// TODO Auto-generated method stub
-		return null;
+		return this.productRepository.findByName(Name);
 	}
 
 	@Override
+	@Transactional
 	public Product findProductById(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return null;
+		return this.productRepository.findById(id);
 	}
 
+	@Override
+	@Transactional
+	public List<Color> getAllColor() throws DataAccessException {
+		// TODO Auto-generated method stub
+		System.out.println("get data COlor");
+		return this.colorRepository.getAllColor();
+	}
+
+	@Override
+	@Transactional
+	public void saveColor(Color color) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.colorRepository.saveColor(color);
+	}
+
+	@Override
+	@Transactional
+	public List<Material> getAllMaterial() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return this.materialRepository.getAllMaterial();
+	}
+
+	@Override
+	@Transactional
+	public void saveMaterial(Material material) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.materialRepository.saveMaterial(material);
+	}
+
+	@Override
+	@Transactional
+	public void savePiece(Piece piece) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.pieceRepository.savePiece(piece);
+	}
 
 }

@@ -16,15 +16,14 @@
 package vn.jmango.grande.virtualstore.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import vn.jmango.grande.virtualstore.model.Owner;
-import vn.jmango.grande.virtualstore.model.Pet;
-import vn.jmango.grande.virtualstore.model.PetType;
+import vn.jmango.grande.virtualstore.model.Color;
+import vn.jmango.grande.virtualstore.model.Material;
+import vn.jmango.grande.virtualstore.model.Piece;
 import vn.jmango.grande.virtualstore.model.Product;
-import vn.jmango.grande.virtualstore.model.Vet;
-import vn.jmango.grande.virtualstore.model.Visit;
 
 
 /**
@@ -33,24 +32,6 @@ import vn.jmango.grande.virtualstore.model.Visit;
  * @author Michael Isvy
  */
 public interface ClinicService {
-
-    public Collection<PetType> findPetTypes() throws DataAccessException;
-
-    public Owner findOwnerById(int id) throws DataAccessException;
-
-    public Pet findPetById(int id) throws DataAccessException;
-
-    public void savePet(Pet pet) throws DataAccessException;
-
-    public void saveVisit(Visit visit) throws DataAccessException;
-
-    public Collection<Vet> findVets() throws DataAccessException;
-
-    public void saveOwner(Owner owner) throws DataAccessException;
-    
-    
-
-    Collection<Owner> findOwnerByLastName(String lastName) throws DataAccessException;
     
     
     public void saveProduct(Product product) throws DataAccessException;
@@ -58,5 +39,15 @@ public interface ClinicService {
     Collection<Product> findProductByName(String Name) throws DataAccessException;
     
     public Product findProductById(int id) throws DataAccessException;
+    
+    List<Color> getAllColor() throws DataAccessException;
+    
+    public void saveColor(Color color) throws DataAccessException;
+    
+    List<Material> getAllMaterial() throws DataAccessException;
+    
+    public void saveMaterial(Material material) throws DataAccessException;
+    
+    public void savePiece(Piece piece) throws DataAccessException;
 
 }

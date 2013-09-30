@@ -1,6 +1,7 @@
 package vn.jmango.grande.virtualstore.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -18,7 +19,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import vn.jmango.grande.virtualstore.model.Owner;
+import vn.jmango.grande.virtualstore.model.Color;
+import vn.jmango.grande.virtualstore.model.Material;
 import vn.jmango.grande.virtualstore.model.Product;
 import vn.jmango.grande.virtualstore.service.ClinicService;
 
@@ -40,8 +42,11 @@ public class ProductController {
 
 	@RequestMapping(value = "/products/new", method = RequestMethod.GET)
 	public String initCreationForm(Map<String, Object> model) {
-		Product product = new Product();
-		model.put("product", product);
+		List<Color> colors =this.clinicService.getAllColor();
+		List<Material> materials= this.clinicService.getAllMaterial();
+		model.put("materials", materials);
+		model.put("colors", colors);
+		model.put("product", new Product());
 		return "products/createOrUpdateProductForm";
 	}
 
@@ -70,7 +75,6 @@ public class ProductController {
 		// allow parameterless GET request for /owners to return all records
 		if (product.getName() == null) {
 			product.setName(""); // empty string signifies broadest possible
-									// search
 		}
 
 		// find owners by last name
@@ -78,7 +82,7 @@ public class ProductController {
 				.findProductByName(product.getName());
 		if (results.size() < 1) {
 			// no owners found
-			result.rejectValue("Product Name", "notFound", "not found");
+			result.rejectValue("name", "notFound", "not found");
 			return "products/findProducts";
 		}
 		if (results.size() > 1) {
@@ -97,6 +101,10 @@ public class ProductController {
 			@PathVariable("productId") int productId, Model model) {
 		Product product = this.clinicService.findProductById(productId);
 		model.addAttribute(product);
+		List<Color> colors =this.clinicService.getAllColor();
+		List<Material> materials= this.clinicService.getAllMaterial();
+		model.addAttribute("materials", materials);
+		model.addAttribute("colors", colors);
 		return "products/createOrUpdateProductForm";
 	}
 
@@ -104,7 +112,7 @@ public class ProductController {
 	public String processUpdateProductForm(@Valid Product product,
 			BindingResult result, SessionStatus status) {
 		if (result.hasErrors()) {
-			return "products/createOrUpdateProductForm";
+			return "product/createOrUpdateProductForm";
 		} else {
 			this.clinicService.saveProduct(product);
 			status.setComplete();
@@ -119,7 +127,7 @@ public class ProductController {
 	 *            the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
-	@RequestMapping("/products/{products}")
+	@RequestMapping("/products/{productId}")
 	public ModelAndView showProduct(@PathVariable("productId") int productId) {
 		ModelAndView mav = new ModelAndView("products/productDetails");
 		mav.addObject(this.clinicService.findProductById(productId));
