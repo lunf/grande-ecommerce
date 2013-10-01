@@ -1,6 +1,8 @@
 package vn.jmango.grande.virtualstore.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 
 @Entity
 @Table(name = "product")
@@ -54,8 +58,8 @@ public class Product extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private Set<JmFile> files;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
-	private List<Piece> pieces;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch=FetchType.EAGER)
+	private Set<Piece> pieces;
 
 	@Column(name = "key_features")
 	protected String keyFeatures;
@@ -187,34 +191,33 @@ public class Product extends BaseEntity {
 		this.uniqueCode = uniqueCode;
 	}
 
-	public void setPieces(List<Piece> pieces) {
+	public void setPieces(Set<Piece> pieces) {
 
 		this.pieces = pieces;
 	}
 
-	protected void setPieceInternal(List<Piece> pieces) {
+	protected void setPieceInternal(Set<Piece> pieces) {
 		this.pieces = pieces;
 	}
 
-	protected List<Piece> getPiecesInternal() {
+	protected Set<Piece> getPiecesInternal() {
 		if (this.pieces == null) {
-			this.pieces = new ArrayList<Piece>();
+			this.pieces = new HashSet<Piece>();
 		}
 		return this.pieces;
 	}
 
 	public List<Piece> getPieces() {
-		// List<Piece> sortedPiece = new ArrayList<Piece>(getPiecesInternal());
-		// PropertyComparator.sort(sortedPiece, new
-		// MutableSortDefinition("name",
-		// true, true));
-		// return Collections.unmodifiableList(sortedPiece);
+		List<Piece> sortedPiece = new ArrayList<Piece>(getPiecesInternal());
+		PropertyComparator.sort(sortedPiece, new MutableSortDefinition("name",
+				true, true));
+		return Collections.unmodifiableList(sortedPiece);
 
-		if (this.pieces == null) {
-			this.pieces = new ArrayList<Piece>();
-		}
-
-		return this.pieces;
+//		if (this.pieces == null) {
+//			this.pieces = new ArrayList<Piece>();
+//		}
+//
+//		return this.pieces;
 	}
 
 	public void addPiece(Piece piece) {

@@ -65,6 +65,7 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Collection<Product> findProductByName(String Name)
 			throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -72,12 +73,14 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Product findProductById(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return this.productRepository.findById(id);
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Color> getAllColor() throws DataAccessException {
 		// TODO Auto-generated method stub
 		System.out.println("get data COlor");
@@ -92,6 +95,7 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Material> getAllMaterial() throws DataAccessException {
 		// TODO Auto-generated method stub
 		return this.materialRepository.getAllMaterial();
@@ -109,6 +113,13 @@ public class ClinicServiceImpl implements ClinicService {
 	public void savePiece(Piece piece) throws DataAccessException {
 		// TODO Auto-generated method stub
 		this.pieceRepository.savePiece(piece);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public Piece findPieceById(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return this.pieceRepository.findPieceById(id);
 	}
 
 }

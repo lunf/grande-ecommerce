@@ -68,7 +68,7 @@
 						<spring:param name="productId" value="${product.id}" />
 					</spring:url> <a href="${fn:escapeXml(editUrl)}" class="btn btn-info">Edit
 						Product</a></td>
-				<td><spring:url value="{productId}/pets/new.html"
+				<td><spring:url value="{productId}/file/new.html"
 						var="addImageUrl">
 						<spring:param name="productId" value="${product.id}" />
 					</spring:url> <a href="${fn:escapeXml(addImageUrl)}" class="btn btn-success">Add
@@ -82,28 +82,54 @@
 		</table>
 
 		<h2>Pieces</h2>
-		<c:forEach var="piece" items="${product.pieces}">
-			<table class="table" style="width: 600px;">
-				<tr>
-					<td valign="top" style="width: 120px;">
-						<dl class="dl-horizontal">
-							<dt>Name</dt>
-							<dd>
-								<c:out value="${piece.name}" />
-							</dd>
-							<dt>Color</dt>
-							<dd>
-								<c:out value="${piece.color}" />
-							</dd>
-							<dt>Width</dt>
-							<dd>
-								<c:out value="${piece.width}" />
-							</dd>
-						</dl>
-					</td>
-				</tr>
-			</table>
-		</c:forEach>
+		<%-- 		<c:forEach var="piece" items="${product.pieces}"> --%>
+		<!-- 			<table class="table" style="width: 600px;"> -->
+		<!-- 				<tr> -->
+		<!-- 					<td valign="top" style="width: 120px;"> -->
+		<!-- 						<dl class="dl-horizontal"> -->
+		<!-- 							<dt>Name</dt> -->
+		<!-- 							<dd> -->
+		<%-- 								<c:out value="${piece.name}" /> --%>
+		<!-- 							</dd> -->
+		<!-- 							<dt>Color</dt> -->
+		<!-- 							<dd> -->
+		<%-- 								<c:out value="${piece.color}" /> --%>
+		<!-- 							</dd> -->
+		<!-- 							<dt>Width</dt> -->
+		<!-- 							<dd> -->
+		<%-- 								<c:out value="${piece.width}" /> --%>
+		<!-- 							</dd> -->
+		<!-- 						</dl> -->
+		<!-- 					</td> -->
+		<!-- 				</tr> -->
+		<!-- 			</table> -->
+		<%-- 		</c:forEach> --%>
+
+		<datatables:table id="products" data="${product.pieces}" cdn="true"
+			row="piece" theme="bootstrap2" cssClass="table table-striped"
+			paginate="false" info="false" export="pdf">
+			<datatables:column title="Name" cssStyle="width: 100px;"
+				display="html">
+				<spring:url value="/products/{productId}/piece/{pieceId}/edit.html" var="productUrl">
+					<spring:param name="productId" value="${product.id}" />
+					<spring:param name="pieceId" value="${piece.id }"/>
+				</spring:url>
+				<a href="${fn:escapeXml(productUrl)}"><c:out
+						value="${piece.name}" /></a>
+			</datatables:column>
+			<datatables:column title="Name" display="pdf">
+				<c:out value="${piece.name}" />
+			</datatables:column>
+			<datatables:column title="Color" property="color" />
+			<datatables:column title="Weight" property="weight" />
+			<datatables:column title="Length" property="length" />
+			<datatables:column title="Height" property="height" />
+			<datatables:column title="Width" property="width" />
+			<datatables:column title="Depth" property="depth" />
+			<datatables:column title="Price" property="price" />
+			<datatables:column title="Material" property="material" />
+			<datatables:export type="pdf" cssClass="btn btn-small" />
+		</datatables:table>
 
 		<h2>Images</h2>
 

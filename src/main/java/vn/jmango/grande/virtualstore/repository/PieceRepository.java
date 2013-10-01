@@ -9,6 +9,6 @@ public interface PieceRepository {
 	
 	void savePiece(Piece piece) throws DataAccessException;
 	
-	
+	Piece findPieceById(int id) throws DataAccessException;
 
 }

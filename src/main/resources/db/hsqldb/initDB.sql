@@ -26,7 +26,7 @@ CREATE TABLE product (
 );
 
 CREATE TABLE piece (
-  id          INTEGER IDENTITY PRIMARY KEY,
+  id          			INTEGER IDENTITY PRIMARY KEY,
   product_id      		INTEGER NOT NULL,
   name 		 			VARCHAR(255) NOT NULL,
   short_description     VARCHAR(255),
@@ -47,14 +47,16 @@ ALTER TABLE piece ADD CONSTRAINT fk_piece_product FOREIGN KEY (product_id) REFER
 
 
 CREATE TABLE jmfile (
-  id          INTEGER IDENTITY PRIMARY KEY,
-  product_file_id      INTEGER NOT NULL,
-  piece_file_id        INTEGER NOT NULL,
+  id          			INTEGER IDENTITY PRIMARY KEY,
+  product_file_id	    INTEGER NOT NULL,
+  piece_file_id         INTEGER NOT NULL,
   name 		 			VARCHAR(255) NOT NULL,
   extension     		VARCHAR(20),
   data			        BLOB,
   content_type       	VARCHAR(80)
 );
+ALTER TABLE jmfile ADD CONSTRAINT fk_jmfile_product FOREIGN KEY (product_file_id) REFERENCES product (id);
+ALTER TABLE jmfile ADD CONSTRAINT fk_jmfile_piece FOREIGN KEY (piece_file_id) REFERENCES piece (id);
 
 CREATE TABLE color(
   id         			INTEGER IDENTITY PRIMARY KEY,

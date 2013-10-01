@@ -49,5 +49,7 @@ public interface ClinicService {
     public void saveMaterial(Material material) throws DataAccessException;
     
     public void savePiece(Piece piece) throws DataAccessException;
+    
+    public Piece findPieceById(int id) throws DataAccessException;
 
 }

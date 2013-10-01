@@ -2,6 +2,7 @@ package vn.jmango.grande.virtualstore.repository.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -25,6 +26,15 @@ public class JpaPieceRepositoryImpl implements PieceRepository {
 		} else {
 			this.em.merge(piece);
 		}
+	}
+
+	@Override
+	public Piece findPieceById(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		Query query = this.em
+				.createQuery("SELECT piece FROM Piece piece WHERE piece.id =:id");
+		query.setParameter("id", id);
+		return (Piece) query.getSingleResult();
 	}
 
 }

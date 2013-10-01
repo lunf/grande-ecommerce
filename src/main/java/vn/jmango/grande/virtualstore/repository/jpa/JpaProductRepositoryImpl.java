@@ -21,6 +21,7 @@ public class JpaProductRepositoryImpl implements ProductRepository {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public Collection<Product> findByName(String Name)
 			throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -30,6 +31,7 @@ public class JpaProductRepositoryImpl implements ProductRepository {
 	}
 
 	@Override
+	@Transactional
 	public Product findById(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		Query query = this.em.createQuery("SELECT product FROM Product product WHERE product.id =:id");

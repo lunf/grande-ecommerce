@@ -1,6 +1,5 @@
 package vn.jmango.grande.virtualstore.web;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import vn.jmango.grande.virtualstore.model.Color;
 import vn.jmango.grande.virtualstore.model.Material;
-import vn.jmango.grande.virtualstore.model.Piece;
 import vn.jmango.grande.virtualstore.model.Product;
 import vn.jmango.grande.virtualstore.service.ClinicService;
 
@@ -133,6 +131,7 @@ public class ProductController {
 	public ModelAndView showProduct(@PathVariable("productId") int productId) {
 		ModelAndView mav = new ModelAndView("products/productDetails");
 		mav.addObject(this.clinicService.findProductById(productId));
+        System.out.println(this.clinicService.findProductById(productId).getPieces());
 		return mav;
 	}
 
