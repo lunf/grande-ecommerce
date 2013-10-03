@@ -36,7 +36,8 @@
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<property name="formatters">
 			<set>
-<!-- 				<bean class="org.springframework.samples.petclinic.web.PetTypeFormatter" /> -->
+				<!-- <bean class="org.springframework.samples.petclinic.web.PetTypeFormatter" 
+					/> -->
 			</set>
 		</property>
 	</bean>
@@ -58,6 +59,10 @@
 		<!-- results into 'WEB-INF/jsp/exception.jsp' -->
 		<property name="warnLogCategory" value="warn" />
 		<!-- needed otherwise exceptions won't be logged anywhere -->
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
 
 </beans>

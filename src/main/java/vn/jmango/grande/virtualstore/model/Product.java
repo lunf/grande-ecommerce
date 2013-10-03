@@ -55,10 +55,10 @@ public class Product extends BaseEntity {
 	@Column(name = "price")
 	protected double price;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
 	private Set<JmFile> files;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch=FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
 	private Set<Piece> pieces;
 
 	@Column(name = "key_features")
@@ -212,17 +212,23 @@ public class Product extends BaseEntity {
 		PropertyComparator.sort(sortedPiece, new MutableSortDefinition("name",
 				true, true));
 		return Collections.unmodifiableList(sortedPiece);
-
-//		if (this.pieces == null) {
-//			this.pieces = new ArrayList<Piece>();
-//		}
-//
-//		return this.pieces;
 	}
 
 	public void addPiece(Piece piece) {
 		getPiecesInternal().add(piece);
 		piece.setProduct(this);
+	}
+
+	protected Set<JmFile> getJmFileInternal() {
+		if (this.files == null) {
+			this.files = new HashSet<JmFile>();
+		}
+		return this.files;
+	}
+
+	public void addFile(JmFile file) {
+		getJmFileInternal().add(file);
+		file.setProduct(this);
 	}
 
 }

@@ -48,11 +48,11 @@ ALTER TABLE piece ADD CONSTRAINT fk_piece_product FOREIGN KEY (product_id) REFER
 
 CREATE TABLE jmfile (
   id          			INTEGER IDENTITY PRIMARY KEY,
-  product_file_id	    INTEGER NOT NULL,
-  piece_file_id         INTEGER NOT NULL,
+  product_file_id	    INTEGER,
+  piece_file_id         INTEGER,
   name 		 			VARCHAR(255) NOT NULL,
   extension     		VARCHAR(20),
-  data			        BLOB,
+  data			        blob,
   content_type       	VARCHAR(80)
 );
 ALTER TABLE jmfile ADD CONSTRAINT fk_jmfile_product FOREIGN KEY (product_file_id) REFERENCES product (id);

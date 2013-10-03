@@ -21,6 +21,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import vn.jmango.grande.virtualstore.model.Color;
+import vn.jmango.grande.virtualstore.model.JmFile;
 import vn.jmango.grande.virtualstore.model.Material;
 import vn.jmango.grande.virtualstore.model.Piece;
 import vn.jmango.grande.virtualstore.model.Product;
@@ -51,5 +52,9 @@ public interface ClinicService {
     public void savePiece(Piece piece) throws DataAccessException;
     
     public Piece findPieceById(int id) throws DataAccessException;
+    
+    public void saveFile(JmFile file) throws DataAccessException;
+    
+    JmFile findFileById(int id) throws DataAccessException;
 
 }

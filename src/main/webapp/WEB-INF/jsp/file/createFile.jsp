@@ -15,20 +15,31 @@
 <body>
 	<div class="container">
 		<jsp:include page="../fragments/bodyHeader.jsp" />
-		<h2>Create File</h2>
-		<table>
-			<tr>
-				<th>Extension</th>
-				<td><input type="text" name="extension"></td>
-			</tr>
-			<tr>
-				<th>Extension</th>
-				<td><input type="text" name="contentType"></td>
-			</tr>
-			
-		</table>
-		 <input type="file"
-			name="data"> <input type="submit" value="Add File">
+		<c:choose>
+			<c:when test="${file['new']}">
+				<c:set var="method" value="post" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="method" value="put"></c:set>
+			</c:otherwise>
+		</c:choose>
+		<h2>
+			<c:if test="${file['new']}">New </c:if>
+			File
+		</h2>
+		<form:form modelAttribute="Jmfile" method="${method}"
+			class="form-horizontal" id="add-product-form"
+			enctype="multipart/form-data">
+			<table>
+				<tr>
+					<th>Extension</th>
+					<td><input type="text" name="extension"></td>
+				</tr>
+
+			</table>
+			<input type="file" name="file" id="file">
+			<input type="submit" value="Add File">
+		</form:form>
 		<jsp:include page="../fragments/footer.jsp" />
 	</div>
 </body>

@@ -24,10 +24,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.jmango.grande.virtualstore.model.Color;
+import vn.jmango.grande.virtualstore.model.JmFile;
 import vn.jmango.grande.virtualstore.model.Material;
 import vn.jmango.grande.virtualstore.model.Piece;
 import vn.jmango.grande.virtualstore.model.Product;
 import vn.jmango.grande.virtualstore.repository.ColorRepository;
+import vn.jmango.grande.virtualstore.repository.FileRepository;
 import vn.jmango.grande.virtualstore.repository.MaterialRepository;
 import vn.jmango.grande.virtualstore.repository.PieceRepository;
 import vn.jmango.grande.virtualstore.repository.ProductRepository;
@@ -45,16 +47,18 @@ public class ClinicServiceImpl implements ClinicService {
 	private ColorRepository colorRepository;
 	private MaterialRepository materialRepository;
 	private PieceRepository pieceRepository;
+	private FileRepository fileRepository;
 
 	@Autowired
 	public ClinicServiceImpl(ProductRepository productRepository,
 			ColorRepository colorRepository,
 			MaterialRepository materialRepository,
-			PieceRepository pieceRepository) {
+			PieceRepository pieceRepository, FileRepository fileRepository) {
 		this.productRepository = productRepository;
 		this.colorRepository = colorRepository;
 		this.materialRepository = materialRepository;
-		this.pieceRepository=pieceRepository;
+		this.pieceRepository = pieceRepository;
+		this.fileRepository = fileRepository;
 	}
 
 	@Override
@@ -65,7 +69,7 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public Collection<Product> findProductByName(String Name)
 			throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -73,14 +77,14 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public Product findProductById(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return this.productRepository.findById(id);
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Color> getAllColor() throws DataAccessException {
 		// TODO Auto-generated method stub
 		System.out.println("get data COlor");
@@ -95,7 +99,7 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Material> getAllMaterial() throws DataAccessException {
 		// TODO Auto-generated method stub
 		return this.materialRepository.getAllMaterial();
@@ -116,10 +120,26 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public Piece findPieceById(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return this.pieceRepository.findPieceById(id);
 	}
+
+	@Override
+	@Transactional
+	public void saveFile(JmFile file) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.fileRepository.saveFile(file);
+	}
+
+	@Override
+	@Transactional
+	public JmFile findFileById(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return this.fileRepository.findFileById(id);
+	}
+	
+	
 
 }

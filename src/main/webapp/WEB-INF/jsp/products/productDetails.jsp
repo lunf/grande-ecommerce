@@ -110,9 +110,10 @@
 			paginate="false" info="false" export="pdf">
 			<datatables:column title="Name" cssStyle="width: 100px;"
 				display="html">
-				<spring:url value="/products/{productId}/piece/{pieceId}/edit.html" var="productUrl">
+				<spring:url value="/products/{productId}/piece/{pieceId}/edit.html"
+					var="productUrl">
 					<spring:param name="productId" value="${product.id}" />
-					<spring:param name="pieceId" value="${piece.id }"/>
+					<spring:param name="pieceId" value="${piece.id }" />
 				</spring:url>
 				<a href="${fn:escapeXml(productUrl)}"><c:out
 						value="${piece.name}" /></a>
@@ -131,57 +132,32 @@
 			<datatables:export type="pdf" cssClass="btn btn-small" />
 		</datatables:table>
 
-		<h2>Images</h2>
+		<h2>Flies</h2>
 
-		<%--     <c:forEach var="file" items="${product.files}"> --%>
-		<!--         <table class="table" style="width:600px;"> -->
-		<!--             <tr> -->
-		<!--                 <td valign="top" style="width: 120px;"> -->
-		<!--                     <dl class="dl-horizontal"> -->
-		<!--                         <dt>Name</dt> -->
-		<%--                         <dd><c:out value="${file.name}"/></dd> --%>
-		<!--                         <dt>Info</dt> -->
-		<%--                         <dd><c:out value="${file.data}"/></dd> --%>
-		<!--                     </dl> -->
-		<!--                 </td> -->
-		<!--                 <td valign="top"> -->
-		<!--                     <table class="table-condensed"> -->
-		<!--                         <thead> -->
-		<!--                         <tr> -->
-		<!--                             <th>Visit Date</th> -->
-		<!--                             <th>Description</th> -->
-		<!--                         </tr> -->
-		<!--                         </thead> -->
-		<%--                         <c:forEach var="visit" items="${pet.visits}"> --%>
-		<!--                             <tr> -->
-		<%--                                 <td><joda:format value="${visit.date}" pattern="yyyy-MM-dd"/></td> --%>
-		<%--                                 <td><c:out value="${visit.description}"/></td> --%>
-		<!--                             </tr> -->
-		<%--                         </c:forEach> --%>
-		<!--                         <tr> -->
-		<!--                             <td>  -->
-		<%--                             	<spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl"> --%>
-		<%-- 			                        <spring:param name="ownerId" value="${owner.id}"/> --%>
-		<%-- 			                        <spring:param name="petId" value="${pet.id}"/> --%>
-		<%-- 			                    </spring:url> --%>
-		<%-- 			                    <a href="${fn:escapeXml(petUrl)}">Edit Pet</a> --%>
-		<!-- 			                </td> -->
-		<!--                             <td> -->
-		<%-- 			                    <spring:url value="/owners/{ownerId}/pets/{petId}/visits/new" var="visitUrl"> --%>
-		<%-- 			                        <spring:param name="ownerId" value="${owner.id}"/> --%>
-		<%-- 			                        <spring:param name="petId" value="${pet.id}"/> --%>
-		<%-- 			                    </spring:url> --%>
-		<%-- 			                    <a href="${fn:escapeXml(visitUrl)}">Add Visit</a> --%>
-		<!--                             </td> -->
-		<!--                        	</tr> -->
-		<!--                     </table> -->
-		<!--                 </td> -->
-		<!--             </tr> -->
-		<!--         </table> -->
-		<%--     </c:forEach> --%>
+		<c:forEach var="file" items="${product.files}">
+			<table class="table" style="width: 600px;">
+				<tr>
+					<td valign="top" style="width: 120px;">
+						<dl class="dl-horizontal">
+							<dt>Name</dt>
+							<dd>
+								<a href="${pageContext.request.contextPath}/download/${file.id}.html"><c:out value="${file.name}" /></a>
+							</dd>
+							<dt>Extension</dt>
+							<dd>
+								<c:out value="${file.extension}" />
+							</dd>
+							<dt>Content Type</dt>
+							<dd>
+								<c:out value="${file.contentType}" />
+							</dd>
+						</dl>
+					</td>
+				</tr>
+			</table>
+		</c:forEach>
 
 		<jsp:include page="../fragments/footer.jsp" />
-
 	</div>
 
 </body>
