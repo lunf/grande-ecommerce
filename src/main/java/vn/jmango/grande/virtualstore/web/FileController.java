@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import vn.jmango.grande.virtualstore.model.JmFile;
+import vn.jmango.grande.virtualstore.model.Piece;
 import vn.jmango.grande.virtualstore.model.Product;
 import vn.jmango.grande.virtualstore.service.ClinicService;
 
@@ -46,8 +47,6 @@ public class FileController {
 	public String createFile(@RequestParam("file") MultipartFile file,
 			@PathVariable("productId") int productId,
 			@ModelAttribute("Jmfile") JmFile jmFile) {
-		System.out.println(jmFile.getId());
-		System.out.println(jmFile.getExtension());
 		Product product = this.clinicService.findProductById(productId);
 		jmFile.setProduct(product);
 		byte[] data = new byte[(int) file.getSize()];
@@ -84,6 +83,33 @@ public class FileController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "redirect:/products/{productId}";
+	}
+
+	@RequestMapping(value = "/products/{productId}/piece/{pieceId}/addfile", method = RequestMethod.GET)
+	public String initFilePiece(Map<String, Object> model) {
+		model.put("file", new JmFile());
+		return "file/createFile";
+	}
+
+	@RequestMapping(value = "/products/{productId}/piece/{pieceId}/addfile", method = RequestMethod.POST)
+	public String addFilePiece(@RequestParam("file") MultipartFile file,
+			@ModelAttribute("Jmfile") JmFile jmFile,
+			@PathVariable("pieceId") Integer pieceId) {
+		Piece piece = this.clinicService.findPieceById(pieceId);
+		jmFile.setPiece(piece);
+		byte[] data = new byte[(int) file.getSize()];
+
+		try {
+			file.getInputStream().read(data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		jmFile.setContentType(file.getContentType());
+		jmFile.setName(file.getOriginalFilename());
+		jmFile.setData(data);
+		this.clinicService.saveFile(jmFile);
 		return "redirect:/products/{productId}";
 	}
 

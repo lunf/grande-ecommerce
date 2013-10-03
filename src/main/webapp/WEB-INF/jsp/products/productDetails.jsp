@@ -104,59 +104,71 @@
 		<!-- 				</tr> -->
 		<!-- 			</table> -->
 		<%-- 		</c:forEach> --%>
+		<c:if test="${!empty product.pieces }">
+			<datatables:table id="products" data="${product.pieces}" cdn="true"
+				row="piece" theme="bootstrap2" cssClass="table table-striped"
+				paginate="false" info="false" export="pdf">
+				<datatables:column title="Name" cssStyle="width: 100px;"
+					display="html">
+					<spring:url value="/products/{productId}/piece/{pieceId}/edit.html"
+						var="productUrl">
+						<spring:param name="productId" value="${product.id}" />
+						<spring:param name="pieceId" value="${piece.id }" />
+					</spring:url>
+					<a href="${fn:escapeXml(productUrl)}"><c:out
+							value="${piece.name}" /></a>
+				</datatables:column>
+				<datatables:column title="Name" display="pdf">
+					<c:out value="${piece.name}" />
+				</datatables:column>
+				<datatables:column title="Color" property="color" />
+				<datatables:column title="Weight" property="weight" />
+				<datatables:column title="Length" property="length" />
+				<datatables:column title="Height" property="height" />
+				<datatables:column title="Width" property="width" />
+				<datatables:column title="Depth" property="depth" />
+				<datatables:column title="Price" property="price" />
+				<datatables:column title="Material" property="material" />
+				<datatables:column title="Add File">
+					<spring:url
+						value="/products/{productId}/piece/{pieceId}/addfile.html"
+						var="addFileUrl">
+						<spring:param name="productId" value="${product.id}" />
+						<spring:param name="pieceId" value="${piece.id }" />
+					</spring:url>
+					<a href="${fn:escapeXml(addFileUrl)}">Add File</a>
+				</datatables:column>
 
-		<datatables:table id="products" data="${product.pieces}" cdn="true"
-			row="piece" theme="bootstrap2" cssClass="table table-striped"
-			paginate="false" info="false" export="pdf">
-			<datatables:column title="Name" cssStyle="width: 100px;"
-				display="html">
-				<spring:url value="/products/{productId}/piece/{pieceId}/edit.html"
-					var="productUrl">
-					<spring:param name="productId" value="${product.id}" />
-					<spring:param name="pieceId" value="${piece.id }" />
-				</spring:url>
-				<a href="${fn:escapeXml(productUrl)}"><c:out
-						value="${piece.name}" /></a>
-			</datatables:column>
-			<datatables:column title="Name" display="pdf">
-				<c:out value="${piece.name}" />
-			</datatables:column>
-			<datatables:column title="Color" property="color" />
-			<datatables:column title="Weight" property="weight" />
-			<datatables:column title="Length" property="length" />
-			<datatables:column title="Height" property="height" />
-			<datatables:column title="Width" property="width" />
-			<datatables:column title="Depth" property="depth" />
-			<datatables:column title="Price" property="price" />
-			<datatables:column title="Material" property="material" />
-			<datatables:export type="pdf" cssClass="btn btn-small" />
-		</datatables:table>
-
+				<datatables:export type="pdf" cssClass="btn btn-small" />
+			</datatables:table>
+		</c:if>
 		<h2>Flies</h2>
-
-		<c:forEach var="file" items="${product.files}">
-			<table class="table" style="width: 600px;">
-				<tr>
-					<td valign="top" style="width: 120px;">
-						<dl class="dl-horizontal">
-							<dt>Name</dt>
-							<dd>
-								<a href="${pageContext.request.contextPath}/download/${file.id}.html"><c:out value="${file.name}" /></a>
-							</dd>
-							<dt>Extension</dt>
-							<dd>
-								<c:out value="${file.extension}" />
-							</dd>
-							<dt>Content Type</dt>
-							<dd>
-								<c:out value="${file.contentType}" />
-							</dd>
-						</dl>
-					</td>
-				</tr>
-			</table>
-		</c:forEach>
-
+		<c:if test="${!empty product.files }">
+			<c:forEach var="file" items="${product.files}">
+				<table class="table" style="width: 600px;">
+					<tr>
+						<td valign="top" style="width: 120px;">
+							<dl class="dl-horizontal">
+								<dt>Name</dt>
+								<dd>
+									<a
+										href="${pageContext.request.contextPath}/download/${file.id}.html"><c:out
+											value="${file.name}" /></a>
+								</dd>
+								<dt>Extension</dt>
+								<dd>
+									<c:out value="${file.extension}" />
+								</dd>
+								<dt>Content Type</dt>
+								<dd>
+									<c:out value="${file.contentType}" />
+								</dd>
+							</dl>
+						</td>
+					</tr>
+				</table>
+			</c:forEach>
+		</c:if>
 		<jsp:include page="../fragments/footer.jsp" />
 	</div>
 

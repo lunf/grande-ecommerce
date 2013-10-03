@@ -29,20 +29,21 @@
 			</div>
 		</form:form>
 		<h2>Colors</h2>
-
-		<datatables:table id="colors" data="${colors}" cdn="true" row="color"
-			theme="bootstrap2" cssClass="table table-striped" paginate="false"
-			info="false">
-			<datatables:column title="Name">
-				<c:out value="${color.name}"></c:out>
-			</datatables:column>
-			<datatables:column title="Code">
-				<c:out value="${color.codeColor}" />
-			</datatables:column>
-			<datatables:column title="Description">
-				<c:out value="${color.colorDescription}"></c:out>
-			</datatables:column>
-		</datatables:table>
+		<c:if test="${!empty colors }">
+			<datatables:table id="colors" data="${colors}" cdn="true" row="color"
+				theme="bootstrap2" cssClass="table table-striped" paginate="false"
+				info="false">
+				<datatables:column title="Name">
+					<c:out value="${color.name}"></c:out>
+				</datatables:column>
+				<datatables:column title="Code">
+					<c:out value="${color.codeColor}" />
+				</datatables:column>
+				<datatables:column title="Description">
+					<c:out value="${color.colorDescription}"></c:out>
+				</datatables:column>
+			</datatables:table>
+		</c:if>
 		<jsp:include page="../fragments/footer.jsp" />
 	</div>
 </body>

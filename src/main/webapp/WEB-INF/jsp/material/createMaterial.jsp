@@ -27,17 +27,18 @@
 			</div>
 		</form:form>
 		<h2>Materials</h2>
-
-		<datatables:table id="materials" data="${materials}" cdn="true" row="material"
-			theme="bootstrap2" cssClass="table table-striped" paginate="false"
-			info="false">
-			<datatables:column title="Name">
-				<c:out value="${material.name}"></c:out>
-			</datatables:column>
-			<datatables:column title="Description">
-				<c:out value="${material.materialDescription}"></c:out>
-			</datatables:column>
-		</datatables:table>
+		<c:if test="${!empty materials }">
+			<datatables:table id="materials" data="${materials}" cdn="true"
+				row="material" theme="bootstrap2" cssClass="table table-striped"
+				paginate="false" info="false">
+				<datatables:column title="Name">
+					<c:out value="${material.name}"></c:out>
+				</datatables:column>
+				<datatables:column title="Description">
+					<c:out value="${material.materialDescription}"></c:out>
+				</datatables:column>
+			</datatables:table>
+		</c:if>
 		<jsp:include page="../fragments/footer.jsp" />
 	</div>
 </body>
