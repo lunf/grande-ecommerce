@@ -70,7 +70,11 @@ public class Product extends BaseEntity {
 	@Column(name = "unique_code", nullable = false, unique = true)
 	@NotEmpty
 	protected String uniqueCode;
-
+	
+	@Column(name="catagory")
+	@NotEmpty
+	protected String catagories;
+	
 	public String getName() {
 		return name;
 	}
@@ -231,4 +235,13 @@ public class Product extends BaseEntity {
 		file.setProduct(this);
 	}
 
+	public String getCatagories() {
+		return catagories;
+	}
+
+	public void setCatagories(String catagories) {
+		this.catagories = catagories;
+	}
+
+	
 }

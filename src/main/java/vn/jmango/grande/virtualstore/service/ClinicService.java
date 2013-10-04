@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import vn.jmango.grande.virtualstore.model.Catagory;
 import vn.jmango.grande.virtualstore.model.Color;
 import vn.jmango.grande.virtualstore.model.JmFile;
 import vn.jmango.grande.virtualstore.model.Material;
@@ -56,5 +57,9 @@ public interface ClinicService {
     public void saveFile(JmFile file) throws DataAccessException;
     
     JmFile findFileById(int id) throws DataAccessException;
+    
+    List<Catagory> getAllCatagory() throws DataAccessException;
+    
+    public void saveCatagory(Catagory catagory) throws DataAccessException;
 
 }

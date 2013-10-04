@@ -38,16 +38,25 @@
 							label="Long Description" name="longDescription" /> <petclinic:inputField
 							label="Weight" name="weight" /> <petclinic:inputField
 							label="Length" name="length" /> <petclinic:inputField
-							label="Height" name="height" /> 
-						<petclinic:selectField label="Color" name="color" size="1" names="${colors }"></petclinic:selectField>
+							label="Height" name="height" /> <petclinic:selectField
+							label="Color" name="color" size="1" names="${colors }"></petclinic:selectField>
 					</td>
 					<td style="padding: 20px;"><petclinic:inputField label="Width"
 							name="width" /> <petclinic:inputField label="Depth" name="depth" />
 						<petclinic:inputField label="Price" name="price" /> <petclinic:inputField
 							label="Key features" name="keyFeatures" /> <petclinic:inputField
 							label="Bar code" name="barcode" /> <petclinic:inputField
-							label="Unique Code" name="uniqueCode" />
-							<petclinic:selectField label="Material" name="material" size="1" names="${materials }"></petclinic:selectField> </td>
+							label="Unique Code" name="uniqueCode" /> <petclinic:selectField
+							label="Material" name="material" size="1" names="${materials }"></petclinic:selectField>
+					</td>
+				</tr>
+				<tr>
+					<th>Catagory</th>
+					<td colspan="2"><select name="catagories" size="3" multiple >
+							<c:forEach items="${catagories }" var="catagory">
+								<option><c:out value="${catagory.name}"></c:out> </option>
+							</c:forEach>
+					</select></td>
 				</tr>
 			</table>
 			<div class="form-actions">

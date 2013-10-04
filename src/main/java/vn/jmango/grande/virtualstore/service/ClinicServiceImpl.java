@@ -23,11 +23,13 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.jmango.grande.virtualstore.model.Catagory;
 import vn.jmango.grande.virtualstore.model.Color;
 import vn.jmango.grande.virtualstore.model.JmFile;
 import vn.jmango.grande.virtualstore.model.Material;
 import vn.jmango.grande.virtualstore.model.Piece;
 import vn.jmango.grande.virtualstore.model.Product;
+import vn.jmango.grande.virtualstore.repository.CatagoryRepository;
 import vn.jmango.grande.virtualstore.repository.ColorRepository;
 import vn.jmango.grande.virtualstore.repository.FileRepository;
 import vn.jmango.grande.virtualstore.repository.MaterialRepository;
@@ -48,17 +50,20 @@ public class ClinicServiceImpl implements ClinicService {
 	private MaterialRepository materialRepository;
 	private PieceRepository pieceRepository;
 	private FileRepository fileRepository;
+	private CatagoryRepository catagoryRepository;
 
 	@Autowired
 	public ClinicServiceImpl(ProductRepository productRepository,
 			ColorRepository colorRepository,
 			MaterialRepository materialRepository,
-			PieceRepository pieceRepository, FileRepository fileRepository) {
+			PieceRepository pieceRepository, FileRepository fileRepository,
+			CatagoryRepository catagoryRepository) {
 		this.productRepository = productRepository;
 		this.colorRepository = colorRepository;
 		this.materialRepository = materialRepository;
 		this.pieceRepository = pieceRepository;
 		this.fileRepository = fileRepository;
+		this.catagoryRepository = catagoryRepository;
 	}
 
 	@Override
@@ -138,6 +143,20 @@ public class ClinicServiceImpl implements ClinicService {
 	public JmFile findFileById(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return this.fileRepository.findFileById(id);
+	}
+
+	@Override
+	@Transactional
+	public List<Catagory> getAllCatagory() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return this.catagoryRepository.getAllCatagory();
+	}
+
+	@Override
+	@Transactional
+	public void saveCatagory(Catagory catagory) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.catagoryRepository.saveCatagory(catagory);
 	}
 	
 	

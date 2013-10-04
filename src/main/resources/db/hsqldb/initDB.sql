@@ -22,7 +22,8 @@ CREATE TABLE product (
   price 				DOUBLE,
   key_features 			VARCHAR(1024),
   bar_code 				VARCHAR(255),
-  unique_code 			VARCHAR(255)
+  unique_code 			VARCHAR(255),
+  catagory				VARCHAR(255),
 );
 
 CREATE TABLE piece (
@@ -73,11 +74,9 @@ CREATE TABLE material(
 
 CREATE TABLE catagory(
 	id         				INTEGER IDENTITY PRIMARY KEY,
-	product_id				INTEGER NOT NULL,
 	name 		 			VARCHAR(150) NOT NULL,
-	catagorydescription     VARCHAR(1024) NOT NULL,
+	catagorydescription     VARCHAR(1024),
 );
-ALTER TABLE catagory ADD CONSTRAINT fk_product_catagory FOREIGN KEY (product_id) REFERENCES product (id);
 
 CREATE TABLE subcatagory(
 	id         				INTEGER IDENTITY PRIMARY KEY,

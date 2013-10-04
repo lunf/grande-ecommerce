@@ -64,6 +64,10 @@
 				<td><c:out value="${product.keyFeatures}" /></td>
 			</tr>
 			<tr>
+				<th>Catagory</th>
+				<td><c:out value="${product.catagories}" /></td>
+			</tr>
+			<tr>
 				<td><spring:url value="{productId}/edit.html" var="editUrl">
 						<spring:param name="productId" value="${product.id}" />
 					</spring:url> <a href="${fn:escapeXml(editUrl)}" class="btn btn-info">Edit

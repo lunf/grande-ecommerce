@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.jmango.grande.virtualstore.model.Catagory;
 import vn.jmango.grande.virtualstore.model.Color;
 import vn.jmango.grande.virtualstore.model.Material;
 import vn.jmango.grande.virtualstore.model.Product;
@@ -42,10 +43,12 @@ public class ProductController {
 
 	@RequestMapping(value = "/products/new", method = RequestMethod.GET)
 	public String initCreationForm(Map<String, Object> model) {
-		List<Color> colors =this.clinicService.getAllColor();
-		List<Material> materials= this.clinicService.getAllMaterial();
+		List<Color> colors = this.clinicService.getAllColor();
+		List<Material> materials = this.clinicService.getAllMaterial();
+		List<Catagory> catagories = this.clinicService.getAllCatagory();
 		model.put("materials", materials);
 		model.put("colors", colors);
+		model.put("catagories", catagories);
 		model.put("product", new Product());
 		return "products/createOrUpdateProductForm";
 	}
@@ -101,10 +104,12 @@ public class ProductController {
 			@PathVariable("productId") int productId, Model model) {
 		Product product = this.clinicService.findProductById(productId);
 		model.addAttribute(product);
-		List<Color> colors =this.clinicService.getAllColor();
-		List<Material> materials= this.clinicService.getAllMaterial();
+		List<Color> colors = this.clinicService.getAllColor();
+		List<Material> materials = this.clinicService.getAllMaterial();
+		List<Catagory> catagories = this.clinicService.getAllCatagory();
 		model.addAttribute("materials", materials);
 		model.addAttribute("colors", colors);
+		model.addAttribute("catagories", catagories);
 		return "products/createOrUpdateProductForm";
 	}
 
@@ -131,7 +136,8 @@ public class ProductController {
 	public ModelAndView showProduct(@PathVariable("productId") int productId) {
 		ModelAndView mav = new ModelAndView("products/productDetails");
 		mav.addObject(this.clinicService.findProductById(productId));
-        System.out.println(this.clinicService.findProductById(productId).getPieces());
+		System.out.println(this.clinicService.findProductById(productId)
+				.getPieces());
 		return mav;
 	}
 
