@@ -61,10 +61,7 @@ public class PieceController {
 		} else {
 
 			Product product = this.clinicService.findProductById(productId);
-			System.out.println("Product :" + product.getId());
 			product.addPiece(piece);
-			System.out.println("Gia tri ID cua Product: "
-					+ piece.getProduct().getId());
 			this.clinicService.savePiece(piece);
 			status.setComplete();
 			return "redirect:/products/{productId}";
@@ -93,13 +90,19 @@ public class PieceController {
 			return "piece/createPiece";
 		} else {
 			Product product = this.clinicService.findProductById(productId);
-			System.out.println("Gia tri cua PieceID: " + piece.getId());
 			piece.setId(pieceId);
 			product.addPiece(piece);
 			this.clinicService.savePiece(piece);
 			status.isComplete();
 			return "redirect:/products/{productId}";
 		}
+	}
+
+	@RequestMapping(value = "/products/{productId}/piece/{pieceId}/deletePiece", method = RequestMethod.GET)
+	public String deletePiece(@PathVariable("pieceId") Integer pieceId) {
+		System.out.println("sdfsdgf"+pieceId);
+		this.clinicService.deletePiece(pieceId);
+		return "redirect:/products/{productId}";
 	}
 
 }

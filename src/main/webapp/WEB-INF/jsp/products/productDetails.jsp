@@ -9,7 +9,10 @@
 	uri="http://github.com/dandelion/datatables"%>
 
 <html lang="en">
-
+<spring:url value="/resources/images/TextEdit.png" var="edit" />
+<spring:url value="/resources/images/file_delete.png" var="delete" />
+<spring:url value="/resources/images/file_add.png" var="add" />
+<spring:url value="/resources/images/no.png" var="no_picture" />
 <jsp:include page="../fragments/headTag.jsp" />
 
 <body>
@@ -81,7 +84,7 @@
 						var="addPieceUrl">
 						<spring:param name="productId" value="${product.id}" />
 					</spring:url> <a href="${fn:escapeXml(addPieceUrl)}" class="btn btn-success">Add
-						New Piece</a></td>
+						New Piece </a></td>
 			</tr>
 		</table>
 
@@ -126,23 +129,53 @@
 					<c:out value="${piece.name}" />
 				</datatables:column>
 				<datatables:column title="Color" property="color" />
-				<datatables:column title="Weight" property="weight" />
-				<datatables:column title="Length" property="length" />
-				<datatables:column title="Height" property="height" />
-				<datatables:column title="Width" property="width" />
-				<datatables:column title="Depth" property="depth" />
+				<datatables:column title="Dimension">
+					<c:out
+						value="We: ${piece.weight } L: ${piece.length } H: ${piece.height } Wi: ${piece.width } D: ${piece.depth }"></c:out>
+				</datatables:column>
 				<datatables:column title="Price" property="price" />
 				<datatables:column title="Material" property="material" />
-				<datatables:column title="Add File">
+				<datatables:column cssStyle="width: 50px;">
 					<spring:url
 						value="/products/{productId}/piece/{pieceId}/addfile.html"
 						var="addFileUrl">
 						<spring:param name="productId" value="${product.id}" />
 						<spring:param name="pieceId" value="${piece.id }" />
 					</spring:url>
-					<a href="${fn:escapeXml(addFileUrl)}">Add File</a>
+					<a href="${fn:escapeXml(addFileUrl)}"><img alt="Add File"
+						src="${add }" style="width: 20px; height: 20px;" title="Add File">
+					</a>
+					<spring:url
+						value="/products/{productId}/piece/{pieceId}/deletePiece.html"
+						var="deletePieceUrl">
+						<spring:param name="productId" value="${product.id}" />
+						<spring:param name="pieceId" value="${piece.id }" />
+					</spring:url>
+					<a href="${fn:escapeXml(deletePieceUrl)}"><img
+						alt="Delete Piece" src="${delete }"
+						style="width: 20px; height: 20px;" title="Delete Piece"> </a>
 				</datatables:column>
-
+				<datatables:column>
+					<c:if test="${!empty piece.images }">
+						<c:forEach items="${piece.images }" var="image">
+							<c:choose>
+								<c:when test="${image.name.endsWith('.jpg')}">
+									<a
+										href="${pageContext.request.contextPath}/download/${image.id}.html"><img
+										alt="${image.name}" title="${image.name }"
+										src="${pageContext.request.contextPath}/download/${image.id}"
+										style="width: 30px; height: 30px;"> </a>
+								</c:when>
+								<c:otherwise>
+									<a
+										href="${pageContext.request.contextPath}/download/${image.id}.html"><img
+										alt="${image.name}" title="${image.name }" src="${no_picture}"
+										style="width: 30px; height: 30px;"> </a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+				</datatables:column>
 				<datatables:export type="pdf" cssClass="btn btn-small" />
 			</datatables:table>
 		</c:if>

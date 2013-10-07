@@ -41,9 +41,23 @@ public class JpaCatagoryRepository implements CatagoryRepository {
 	}
 
 	@Override
+	@Transactional
 	public Catagory findCatagoryById(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return null;
+		Query query = this.em.createQuery("SELECT catagory FROM Catagory catagory WHERE catagory.id =:id");
+		query.setParameter("id", id);
+		return (Catagory)query.getSingleResult();
 	}
+
+	@Override
+	@Transactional
+	public void deleteCatagory(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		Query query = this.em.createQuery("SELECT catagory FROM Catagory catagory WHERE catagory.id =:id");
+		query.setParameter("id", id);
+		this.em.remove((Catagory)query.getSingleResult());
+	}
+	
+	
 
 }

@@ -1,5 +1,7 @@
 package vn.jmango.grande.virtualstore.repository.jpa;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -29,12 +31,28 @@ public class JpaPieceRepositoryImpl implements PieceRepository {
 	}
 
 	@Override
+	@Transactional
 	public Piece findPieceById(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		Query query = this.em
 				.createQuery("SELECT piece FROM Piece piece WHERE piece.id =:id");
 		query.setParameter("id", id);
 		return (Piece) query.getSingleResult();
+	}
+
+	@Override
+	@Transactional
+	public List<Piece> getAllPiece() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public void deletePiece(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		Piece piece= this.findPieceById(id);
+		this.em.remove(piece);
 	}
 
 }

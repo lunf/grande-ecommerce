@@ -47,4 +47,24 @@ public class JpaColorRepositoryImpl implements ColorRepository {
 		}
 	}
 
+	@Override
+	@Transactional
+	public Color findColorById(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		Query query = this.em
+				.createQuery("SELECT color FROM Color color WHERE color.id =:id");
+		query.setParameter("id", id);
+		return (Color) query.getSingleResult();
+	}
+
+	@Override
+	@Transactional
+	public void deleteColor(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		Query query = this.em.createQuery("SELECT color FROM Color color WHERE color.id =:id");
+		query.setParameter("id", id);
+		this.em.remove((Color)query.getSingleResult());
+	}
+	
+
 }

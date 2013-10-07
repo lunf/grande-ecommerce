@@ -10,22 +10,41 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 
 <html lang="en">
-
+<spring:url value="/resources/images/TextEdit.png" var="edit" />
+<spring:url value="/resources/images/file_delete.png" var="delete" />
 <jsp:include page="../fragments/headTag.jsp" />
 
 <body>
 	<div class="container">
 		<jsp:include page="../fragments/bodyHeader.jsp" />
-		<h2>Create New Color</h2>
+		<c:choose>
+			<c:when test="${color['new']}">
+				<c:set var="method" value="post" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="method" value="put" />
+			</c:otherwise>
+		</c:choose>
+		<h2>
+			<c:if test="${color['new']}">New </c:if>
+			Colors
+		</h2>
 
 		<%-- 		<spring:url value="/color/new.html" var="formUrl" /> --%>
-		<form:form modelAttribute="color" method="post"
+		<form:form modelAttribute="color" method="${method }"
 			class="form-horizontal" id="add-owner-form">
 			<petclinic:inputField label="Name" name="name"></petclinic:inputField>
 			<petclinic:inputField label="Code Color" name="codeColor"></petclinic:inputField>
 			<petclinic:inputField label="Descriptions" name="colorDescription"></petclinic:inputField>
 			<div class="form-actions">
-				<button type="submit">Add Color</button>
+				<c:choose>
+					<c:when test="${color['new']}">
+						<button type="submit">Add Colors</button>
+					</c:when>
+					<c:otherwise>
+						<button type="submit">Update Colors</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</form:form>
 		<h2>Colors</h2>
@@ -41,6 +60,21 @@
 				</datatables:column>
 				<datatables:column title="Description">
 					<c:out value="${color.colorDescription}"></c:out>
+				</datatables:column>
+				<datatables:column cssStyle="width: 80px;">
+					<spring:url value="/color/{colorId}/edit.html" var="editColorUrl">
+						<spring:param name="colorId" value="${color.id}" />
+					</spring:url>
+					<a href="${fn:escapeXml(editColorUrl)}"><img alt="Edit Color"
+						src="${edit}" style="width: 30px; height: 30px;"
+						title="Edit Color" /></a>
+					<spring:url value="/color/{colorId}/delete.html"
+						var="deleteColorUrl">
+						<spring:param name="colorId" value="${color.id}" />
+					</spring:url>
+					<a href="${fn:escapeXml(deleteColorUrl)}"><img
+						alt="Edit Catagory" src="${delete}"
+						style="width: 30px; height: 30px;" title="Delete Color" /></a>
 				</datatables:column>
 			</datatables:table>
 		</c:if>

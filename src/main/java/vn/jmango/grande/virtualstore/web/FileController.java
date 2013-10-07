@@ -102,20 +102,22 @@ public class FileController {
 
 		try {
 			file.getInputStream().read(data);
+			jmFile.setContentType(file.getContentType());
+			jmFile.setName(file.getOriginalFilename());
+			jmFile.setData(data);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		jmFile.setContentType(file.getContentType());
-		jmFile.setName(file.getOriginalFilename());
-		jmFile.setData(data);
 		this.clinicService.saveFile(jmFile);
 		return "redirect:/products/{productId}";
 	}
+	
 
 	public static Blob createBlob(byte[] bytes) {
 		return NonContextualLobCreator.INSTANCE
 				.wrap(NonContextualLobCreator.INSTANCE.createBlob(bytes));
 	}
+	
 
 }

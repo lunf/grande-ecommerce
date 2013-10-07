@@ -13,5 +13,7 @@ public interface CatagoryRepository {
 	void saveCatagory(Catagory catagory) throws DataAccessException;
 	
 	Catagory findCatagoryById(int id) throws DataAccessException;
+	
+	void deleteCatagory(int id) throws DataAccessException;
 
 }

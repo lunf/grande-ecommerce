@@ -136,9 +136,6 @@ public class ProductController {
 	public ModelAndView showProduct(@PathVariable("productId") int productId) {
 		ModelAndView mav = new ModelAndView("products/productDetails");
 		mav.addObject(this.clinicService.findProductById(productId));
-		System.out.println(this.clinicService.findProductById(productId)
-				.getPieces());
 		return mav;
 	}
-
 }

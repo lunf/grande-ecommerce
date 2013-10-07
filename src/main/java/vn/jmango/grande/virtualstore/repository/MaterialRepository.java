@@ -11,5 +11,9 @@ public interface MaterialRepository {
 	List<Material> getAllMaterial() throws DataAccessException;
 	
 	void saveMaterial(Material material) throws DataAccessException;
+	
+	Material findMaterialById(int id) throws DataAccessException;
+	
+	void deleteMaterial(int id) throws DataAccessException;
 
 }

@@ -13,5 +13,9 @@ public interface ColorRepository {
 	String getCodeColor(String nameColor) throws DataAccessException;
 	
 	void saveColor(Color color) throws DataAccessException;
+	
+	Color findColorById(int id) throws DataAccessException;
+	
+	void deleteColor(int id) throws DataAccessException;
 
 }

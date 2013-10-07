@@ -158,7 +158,76 @@ public class ClinicServiceImpl implements ClinicService {
 		// TODO Auto-generated method stub
 		this.catagoryRepository.saveCatagory(catagory);
 	}
-	
-	
 
+	@Override
+	@Transactional
+	public Catagory findCatagoryById(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return this.catagoryRepository.findCatagoryById(id);
+	}
+
+	@Override
+	@Transactional
+	public void deleteCatagory(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.catagoryRepository.deleteCatagory(id);
+	}
+
+	@Override
+	@Transactional
+	public Color findColorById(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return this.colorRepository.findColorById(id);
+	}
+
+	@Override
+	@Transactional
+	public void deleteColor(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.colorRepository.deleteColor(id);
+	}
+
+	@Override
+	@Transactional
+	public Material findMaterialById(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return this.materialRepository.findMaterialById(id);
+	}
+
+	@Override
+	@Transactional
+	public void deleteMaterial(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.materialRepository.deleteMaterial(id);
+	}
+
+	@Override
+	@Transactional
+	public List<JmFile> getAllFile() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return this.fileRepository.getAllFile();
+	}
+
+	@Override
+	@Transactional
+	public void deleteFile(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.fileRepository.deleteFile(id);
+	}
+
+	@Override
+	@Transactional
+	public void deletePiece(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		this.pieceRepository.deletePiece(id);
+	}
+
+	@Override
+	@Transactional
+	public List<Piece> getAllPiece() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return this.pieceRepository.getAllPiece();
+	}
+	
+	
 }

@@ -40,4 +40,24 @@ public class JpaMaterialRepositoryImpl implements MaterialRepository {
 		}
 	}
 
+	@Override
+	@Transactional
+	public Material findMaterialById(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		Query query = this.em.createQuery("SELECT material FROM Material material WHERE material.id =:id");
+		query.setParameter("id", id);
+		return (Material)query.getSingleResult();
+	}
+
+	@Override
+	@Transactional
+	public void deleteMaterial(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		Query query = this.em.createQuery("SELECT material FROM Material material WHERE material.id =:id");
+		query.setParameter("id", id);
+		this.em.remove((Material)query.getSingleResult());
+	}
+	
+	
+
 }

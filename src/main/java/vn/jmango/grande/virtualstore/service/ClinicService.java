@@ -35,31 +35,61 @@ import vn.jmango.grande.virtualstore.model.Product;
  */
 public interface ClinicService {
     
-    
+    /* Functions Products */
     public void saveProduct(Product product) throws DataAccessException;
     
     Collection<Product> findProductByName(String Name) throws DataAccessException;
     
     public Product findProductById(int id) throws DataAccessException;
     
+    
+    /* Functions Products */
     List<Color> getAllColor() throws DataAccessException;
     
     public void saveColor(Color color) throws DataAccessException;
     
+    Color findColorById(int id) throws DataAccessException;
+    
+    public void deleteColor(int id) throws DataAccessException;
+    
+    
+    /* Functions Material */
     List<Material> getAllMaterial() throws DataAccessException;
     
     public void saveMaterial(Material material) throws DataAccessException;
     
+    Material findMaterialById(int id) throws DataAccessException;
+    
+    public void deleteMaterial(int id) throws DataAccessException;
+    
+    
+    /* Functions Piece */
     public void savePiece(Piece piece) throws DataAccessException;
     
     public Piece findPieceById(int id) throws DataAccessException;
     
+    public void deletePiece(int id) throws DataAccessException;
+    
+    List<Piece> getAllPiece() throws DataAccessException;
+    
+    
+    /* Functions File */
     public void saveFile(JmFile file) throws DataAccessException;
     
     JmFile findFileById(int id) throws DataAccessException;
     
+    List<JmFile> getAllFile() throws DataAccessException;
+    
+    public void deleteFile(int id) throws DataAccessException;
+    
+    
+    /* Functions Catagory */
     List<Catagory> getAllCatagory() throws DataAccessException;
     
     public void saveCatagory(Catagory catagory) throws DataAccessException;
+    
+    Catagory findCatagoryById(int id) throws DataAccessException;
+    
+    public void deleteCatagory(int id) throws DataAccessException;
 
 }

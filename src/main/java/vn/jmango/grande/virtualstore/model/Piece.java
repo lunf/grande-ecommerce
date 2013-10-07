@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -58,7 +59,7 @@ public class Piece extends BaseEntity {
 	@Column(name = "key_features")
 	protected String keyFeatures;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "piece")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "piece", fetch=FetchType.EAGER)
 	private Set<JmFile> images;
 
 	@Column(name = "bar_code")
