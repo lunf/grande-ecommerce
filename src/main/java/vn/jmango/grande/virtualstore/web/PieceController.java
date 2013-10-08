@@ -116,12 +116,13 @@ public class PieceController {
 					piece.getImages().clear();
 				}
 				
-//				this.clinicService.deletePiece(pieceId);
+				this.clinicService.deletePiece(pieceId);
 				product.getPieces().remove(piece);
-				product.getPieces().clear();
+				product.getPieces();
 			}
 		}
 		this.clinicService.saveProduct(product);
+		
 		
 		return "redirect:/products/{productId}";
 	}

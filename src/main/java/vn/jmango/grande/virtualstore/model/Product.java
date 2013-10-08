@@ -55,10 +55,10 @@ public class Product extends BaseEntity {
 	@Column(name = "price")
 	protected double price;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER, orphanRemoval=true)
 	private Set<JmFile> files;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER, orphanRemoval=true)
 	private Set<Piece> pieces;
 
 	@Column(name = "key_features")
