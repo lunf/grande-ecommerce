@@ -3,8 +3,12 @@ package vn.jmango.grande.virtualstore.web;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +39,7 @@ public class PieceController {
 	public PieceController(ClinicService clinicService) {
 		this.clinicService = clinicService;
 	}
-
+	
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -106,11 +110,15 @@ public class PieceController {
 		Product product = this.clinicService.findProductById(productId);
 		for (Piece piece : product.getPieces()) {
 			if (piece.getId() == pieceId) {
-//				for (JmFile file : piece.getImages()) {
+				for (JmFile file : piece.getImages()) {
 //					this.clinicService.deleteFile(file.getId());
-//				}
-				this.clinicService.deletePiece(pieceId);
+					piece.getImages().remove(file);
+					piece.getImages().clear();
+				}
+				
+//				this.clinicService.deletePiece(pieceId);
 				product.getPieces().remove(piece);
+				product.getPieces().clear();
 			}
 		}
 		this.clinicService.saveProduct(product);

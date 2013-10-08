@@ -4,6 +4,8 @@ INSERT INTO material VALUES (1, 'Wood', 'Test2');
 
 INSERT INTO product VALUES (1, 'table', 'tabletest', 'test1','tabletest','Red','tabletest','tabletest','tabletest','tabletest','tabletest',22.3,'tabletest','tabletest','tabletest','Loai A, Loai B');
 
+INSERT INTO piece VALUES (1,1, 'table', 'tabletest', 'test1','tabletest','Red','tabletest','tabletest','tabletest','tabletest','tabletest',22.3,'tabletest','tabletest','tabletest');
+
 INSERT INTO catagory VALUES (1, 'Loai A', 'test1');
 INSERT INTO catagory VALUES (2, 'Loai B', 'test2');
 INSERT INTO catagory VALUES (3, 'Loai C', 'test3');
