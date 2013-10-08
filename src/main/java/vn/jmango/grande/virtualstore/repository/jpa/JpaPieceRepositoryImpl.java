@@ -51,7 +51,8 @@ public class JpaPieceRepositoryImpl implements PieceRepository {
 	@Transactional
 	public void deletePiece(int id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		Piece piece= this.findPieceById(id);
+		Piece piece = this.findPieceById(id);
+		System.out.println("JPA Piece " + piece.getName());
 		this.em.remove(piece);
 	}
 

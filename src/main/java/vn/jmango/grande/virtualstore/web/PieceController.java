@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import vn.jmango.grande.virtualstore.model.Color;
+import vn.jmango.grande.virtualstore.model.JmFile;
 import vn.jmango.grande.virtualstore.model.Material;
 import vn.jmango.grande.virtualstore.model.Piece;
 import vn.jmango.grande.virtualstore.model.Product;
@@ -99,9 +100,21 @@ public class PieceController {
 	}
 
 	@RequestMapping(value = "/products/{productId}/piece/{pieceId}/deletePiece", method = RequestMethod.GET)
-	public String deletePiece(@PathVariable("pieceId") Integer pieceId) {
-		System.out.println("sdfsdgf"+pieceId);
-		this.clinicService.deletePiece(pieceId);
+	public String deletePiece(@PathVariable("pieceId") Integer pieceId,
+			@PathVariable("productId") Integer productId) {
+		System.out.println("sdfsdgf" + pieceId);
+		Product product = this.clinicService.findProductById(productId);
+		for (Piece piece : product.getPieces()) {
+			if (piece.getId() == pieceId) {
+//				for (JmFile file : piece.getImages()) {
+//					this.clinicService.deleteFile(file.getId());
+//				}
+				this.clinicService.deletePiece(pieceId);
+				product.getPieces().remove(piece);
+			}
+		}
+		this.clinicService.saveProduct(product);
+		
 		return "redirect:/products/{productId}";
 	}
 

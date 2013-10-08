@@ -84,4 +84,3 @@ CREATE TABLE subcatagory(
 	name 		 			VARCHAR(150) NOT NULL,
 	subcatagorydescription  VARCHAR(1024) NOT NULL,
 );
-ALTER TABLE subcatagory ADD CONSTRAINT fk_piece_subcatagory FOREIGN KEY (piece_id) REFERENCES piece (id);

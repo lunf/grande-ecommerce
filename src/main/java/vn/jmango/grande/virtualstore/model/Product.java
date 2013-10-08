@@ -211,11 +211,13 @@ public class Product extends BaseEntity {
 		return this.pieces;
 	}
 
-	public List<Piece> getPieces() {
-		List<Piece> sortedPiece = new ArrayList<Piece>(getPiecesInternal());
-		PropertyComparator.sort(sortedPiece, new MutableSortDefinition("name",
-				true, true));
-		return Collections.unmodifiableList(sortedPiece);
+	public Set<Piece> getPieces() {
+//		List<Piece> sortedPiece = new ArrayList<Piece>(getPiecesInternal());
+//		PropertyComparator.sort(sortedPiece, new MutableSortDefinition("name",
+//				true, true));
+//		return Collections.unmodifiableList(sortedPiece);
+		
+		return this.pieces;
 	}
 
 	public void addPiece(Piece piece) {
